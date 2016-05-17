@@ -76,10 +76,20 @@ html {
     float: left;
 }
 
+#help {
+    display: none;
+    position: absolute;
+    left: 830px;
+    width: 300px;
+    height: 400px;
+    background-color: #888888;
+}
+
 #game {
     position: absolute;
     top: 0;
 }
+
 
 #talk {
     display: none;
@@ -93,7 +103,7 @@ html {
     font-size: 14px;
     z-index: 1;
     border-radius: 4px;
-    color: #259FFF;
+    color: #eeeeff;
     background-color: #000088;
     border: solid 4px #eeeeff;
     padding: 5px;

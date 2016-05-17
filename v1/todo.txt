@@ -1,7 +1,15 @@
  + Play Mode
- - Text im Play mode nicht bearbeitbar
- - Anleitung
- - Art: background-color
+ + Redrop, resave gameObject
+ + remove, resave
+ + Tiles Wegwerfen implementieren
+ + Anleitung
+ + Favicon
+ - What about the rabbits/Hasen werfen
+ - Schrumpfen
+ - Move Alice
+ - Slides
+
+
  - Art: Tiles überarbeiten, minimap color
  - Tile Feature: shrink, grow
  - Tile Feature: final goal
@@ -9,10 +17,12 @@
  - # to trigger mesh
  - GamePad/Virtual game pad
  - Controlls verallgemeiners
- - Tiles Wegwerfen implementieren
- - Art: Nice tiles
+
+
  - Art: Animation
  ================================================
+  - Art: Nice tiles
+  - Text im Play mode nicht bearbeitbar
  x Minimap: update und andere objekte darstellen
  X checkpoint
  x Ladder does not work

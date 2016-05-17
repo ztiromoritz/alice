@@ -11,6 +11,8 @@
             false   //antialias
         );
 
+        global.gameObjectId = 0; //Id Counter
+
         game.state.add("preload", PreloadState);
         game.state.add("menu", MenuState);
         game.state.add("play", PlayState);

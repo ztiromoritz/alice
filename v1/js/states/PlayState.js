@@ -1,6 +1,33 @@
 (function(global) {
 
 
+    var explosionParticle = function(game, x, y, key, frame) {
+        Phaser.Particle.call(this, game, x, y, key, frame);
+    }
+
+    explosionParticle.prototype = Object.create(Phaser.Particle.prototype);
+    explosionParticle.prototype.constructor = explosionParticle;
+    explosionParticle.prototype.onEmit = function() {
+        this.animations.add('explsion', Phaser.Animation.generateFrameNames("explosion_", 1, 11, ".png", 10));
+        this.animations.play('explosion', 20, false, true);
+    }
+
+    //  Player explosion
+    var playExplosionAdvanced = function(game,x, y) {
+        emitter = game.add.emitter(x, y, 3);
+        emitter.particleClass = explosionParticle;
+        emitter.makeParticles('enemy1');
+        emitter.width = 20;
+        emitter.height = 20;
+        emitter.minParticleScale = 0.2;
+        emitter.maxParticleScale = 0.4;
+        emitter.minParticleSpeed.set(0, 2);
+        emitter.maxParticleSpeed.set(0, 6);
+        emitter.gravity = -100;
+        emitter.start(false, 2000, 50, 6);
+    }
+
+
     var EVENT_TYPES = {
         dialog: "dialog",
         respawn: "respawn"
@@ -33,7 +60,8 @@
         this.eventZones = null;
 
         this.tileCollState = {
-            ladder: false
+            ladder: false,
+            bunny: false
         };
 
     };
@@ -53,10 +81,16 @@
             _runTest(this.map);
         }
 
+        if(editMode){
+            $('#help').show();
+        }else{
+            $('#help').hide();
+        }
+
         this.background = new Background(this.game, null,0,0);
         this.game.add.existing(this.background);
 
-    
+
 
         this.map.addTilesetImage('tileset');
         this.tileLayer = this.map.createLayer('Tiles');
@@ -89,6 +123,7 @@
         this.map.objects.Objects.forEach(function(char) {
             var properties = getTileProperties(char.gid, self.map);
             var gameObject = {
+                id: gameObjectId ++,
                 gid: char.gid,
                 x: char.x,
                 y: char.y,
@@ -102,17 +137,23 @@
             if (properties.type === 'player') {
                 self.player = new Player(self.game, char.x, char.y, self.tileCollState);
                 self.game.add.existing(self.player);
+                self.player.gameObject = gameObject;
+                self.player.setRespawnPoint();
             } else if (properties.type === 'npc') {
                 var npc = new NPC(self.game, char.x, char.y, self.gameObjects, gameObject);
+                npc.gameObject = gameObject;
                 self.npcs.add(npc);
             } else if (properties.type === 'enemy') {
                 var enemy1 = new Enemy1(self.game, char.x, char.y, self.gameObjects);
+                enemy1.gameObject = gameObject;
                 self.enemies.add(enemy1);
             } else if (properties.type === 'checkpoint') {
                 var checkpoint = new Checkpoint(self.game, char.x, char.y, self.gameObjects);
+                checkpoint.gameObject = gameObject;
                 self.checkpoints.add(checkpoint);
             } else if (properties.type === 'bunny') {
                 var bunny = new Bunny(self.game, char.x, char.y, self.gameObjects);
+                bunny.gameObject = gameObject;
                 bunny.minimapColor = '#ffffff';
                 self.bunnies.add(bunny);
             }
@@ -159,6 +200,7 @@
 
 
     PlayState.prototype.update = function() {
+        var self = this;
         this.debugInfo();
 
 
@@ -173,6 +215,20 @@
             return false;
         });
 
+        this.physics.arcade.collide(this.player, this.bunnies, null, function(player, bunny) {
+            self.tileCollState.bunny = bunny;
+            return false;
+        });
+
+        this.physics.arcade.collide(this.bunnies, this.enemies, null, function(bunny, enemy) {
+            console.log('collide',!bunny.body.onFloor() && !bunny.body.touching.down);
+            if(bunny.isBullet){
+                playExplosionAdvanced(self.game,enemy.x,enemy.y);
+                enemy.destroy();
+            }
+            return false;
+        });
+
 
         this.physics.arcade.collide(this.npcs, this.tileLayer, function(npc, layer) {
             npc.collideWithWorld();
@@ -180,6 +236,7 @@
         });
 
         this.physics.arcade.collide(this.enemies, this.tileLayer, function(enemy, layer) {
+
             enemy.collideWithWorld();
             return true;
         });

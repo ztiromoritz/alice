@@ -29,18 +29,31 @@
 
                 constructor.prototype.storeAndReproduce = function() {
                     if (this.templateMaster) {
+                        //first time
                         this.templateMaster = false;
                         this.constructor.createNewTemplateMaster(this.game, this.parent, this.gameObjects);
                         var gameObject = {
+                            id : gameObjectId ++,
                             gid: GID,
                             x: this.x,
                             y: this.y,
-                            properties: { dialog : { text : 'TEXT'}}
+                            properties: {
+                                dialog: {
+                                    text: 'TEXT'
+                                }
+                            }
                         };
                         this.gameObjects.push(gameObject);
                         this.gameObject = gameObject;
+                    } else if (this.wasDragged) {
+                        //every next time sprite was dragged
+                        this.gameObject.x = this.x;
+                        this.gameObject.y = this.y;
                     }
+                    this.wasDragged = false;
                 }
+
+
 
                 constructor.prototype.collideWithToolbox = function() {
                     if (this.mode !== constructor.MODES.DRAG) {
@@ -58,14 +71,31 @@
                     this.input.enableDrag();
                     this.events.onDragStart.add(function() {
                         this.body.moves = false;
-                        console.log('MODE:'+this.mode, constructor.MODES);
+                        console.log('MODE:' + this.mode, constructor.MODES);
                         this.mode = constructor.MODES.DRAG;
                     }, this);
                     this.events.onDragStop.add(function() {
                         this.body.moves = true;
+                        this.wasDragged = true;
                         this.mode = constructor.MODES.IDLE;
                     }, this);
                 };
+
+                constructor.prototype.checkDestroy = function() {
+                    var self = this;
+                    if (this.y > 1000) {
+
+
+                        _.remove(this.gameObjects, function(value) {
+                            return  (self.gameObject) && value.id === self.gameObject.id;
+                        });
+
+                        this.destroy();
+                        return true;
+                    }
+                    return false;
+
+                }
 
 
 

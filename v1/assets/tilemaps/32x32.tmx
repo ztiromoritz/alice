@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="360" height="16" tilewidth="32" tileheight="32" nextobjectid="10">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="360" height="16" tilewidth="32" tileheight="32" nextobjectid="11">
  <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" tilecount="64">
   <image source="tileset.png" width="256" height="256"/>
   <tile id="0">
@@ -8,9 +8,19 @@
     <property name="type" value="ladder"/>
    </properties>
   </tile>
-  <tile id="4">
+  <tile id="1">
    <properties>
     <property name="type" value="ladder"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="type" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="type" value="solid"/>
    </properties>
   </tile>
   <tile id="8">
@@ -40,16 +50,6 @@
    </properties>
   </tile>
   <tile id="13">
-   <properties>
-    <property name="type" value="solid"/>
-   </properties>
-  </tile>
-  <tile id="14">
-   <properties>
-    <property name="type" value="solid"/>
-   </properties>
-  </tile>
-  <tile id="15">
    <properties>
     <property name="type" value="solid"/>
    </properties>
@@ -107,5 +107,6 @@
  </layer>
  <objectgroup name="Objects">
   <object id="4" name="player" gid="65" x="64" y="480" width="32" height="32"/>
+  <object id="10" gid="68" x="96" y="480" width="32" height="32"/>
  </objectgroup>
 </map>

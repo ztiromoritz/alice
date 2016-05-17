@@ -2,13 +2,22 @@
     var LEFT = true;
     var RIGHT = false;
 
+
+
+
+
+
+
+
+
+
     var Enemy1 = function(game, x, y, gameObjects) {
         y -= 1; //Hack Collision vs Tiled drop above the ground
         Phaser.Sprite.call(this, game, x, y, 'enemy1');
         this.mode = Enemy1.MODES.IDLE;
         this.gameObjects = gameObjects;
 
-        this.animations.add('idle', [0, 1], 4, true);
+        this.animations.add('idle', [4], 4, true);
         this.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7], 14, true);
 
 
@@ -29,10 +38,13 @@
 
     Enemy1.prototype = Object.create(Phaser.Sprite.prototype);
     Enemy1.prototype.constructor = Enemy1;
-    ReproducerMixin.create(67, 100, 10).apply(Enemy1);
+    ReproducerMixin.create(67, 90, -20).apply(Enemy1);
     Enemy1.addMode('WALK');
 
     Enemy1.prototype.update = function() {
+        if (this.checkDestroy()) {
+            return;
+        }
         switch (this.mode) {
             case Enemy1.MODES.TEMPLATE:
                 {
@@ -63,11 +75,11 @@
                     this.body.moves = true;
                     this.animations.play('walk');
                     if (this.direction === LEFT) {
-                        this.body.velocity.x = -40;
+                        this.body.velocity.x = -50;
                         this.animations.play('walk');
                         flipLeft(this);
                     } else {
-                        this.body.velocity.x = 40;
+                        this.body.velocity.x = 50;
                         this.animations.play('walk');
                         flipRight(this);
                     }

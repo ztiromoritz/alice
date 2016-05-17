@@ -24,7 +24,7 @@
         //this.game.load.spritesheet('enemy1',        'assets/characters/enemy1/enemy1.png', 32, 32);
         this.game.load.spritesheet('enemy1',        'assets/characters/enemy1/cards.png', 92, 92);
         this.game.load.spritesheet('bunny',        'assets/characters/bunny/bunny2.png', 32, 32);
-        this.game.load.spritesheet('npc',           'assets/characters/npc/npcSprite.png', 32, 32);
+        this.game.load.spritesheet('npc',           'assets/characters/npc/npcSprite.png', 64,96);
         this.game.load.spritesheet('checkpoint',    'assets/characters/checkpoint/checkpoint.png', 32, 32);
 
         this.game.load.image('grey', 'assets/buttons/grey.png');

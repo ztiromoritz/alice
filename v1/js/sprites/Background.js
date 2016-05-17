@@ -11,7 +11,7 @@
 
         //==========
         //  Create our bitmapData which we'll use as our particle texture
-
+/*
         var bmd = this.game.add.bitmapData(10, 10);
 
         var radgrad = bmd.ctx.createRadialGradient(5, 5, 1, 5, 5, 5);
@@ -45,8 +45,7 @@
 
         emitter.angle =0;
 
-        emitter.start(false, 5000, 100);
-
+        emitter.start(false, 5000, 100);*/
         //this.game.input.onDown.add(updateBitmapDataTexture, this);
 
         //=============
@@ -58,7 +57,7 @@
         this.bg3 = this.game.add.tileSprite(0, 0, 11520, 512, 'bg3');
 
         this.add(this.bg1);
-        this.add(emitter);
+        //this.add(emitter);
         this.add(this.bg2);
         this.add(this.bg3);
 

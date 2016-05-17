@@ -8,7 +8,7 @@
     var SPRITE_GAP = 2;
 
     var CAGE_WIDTH = 350;
-    var CAGE_HEIGHT = 64;
+    var CAGE_HEIGHT = 80;
 
     var MODES = {
         PEN: 0,
@@ -169,7 +169,7 @@
             self.cageBGSprite = self.game.add.sprite(x, y, cageBackgroundBMD);
 
 
-            self.cagefloor = self.game.add.tileSprite(x, y + 64, CAGE_WIDTH, 4, "grey");
+            self.cagefloor = self.game.add.tileSprite(x, y + CAGE_HEIGHT, CAGE_WIDTH, 4, "grey");
             self.game.physics.arcade.enable(self.cagefloor);
             self.cagefloor.body.setSize(CAGE_WIDTH, 4, 0, 0);
             self.cagefloor.body.moves = false;

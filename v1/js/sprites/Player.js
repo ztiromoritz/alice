@@ -13,7 +13,8 @@
         TALK: 2,
         RESPAWN: 3,
         DRAG: 4,
-        LADDER: 5
+        LADDER: 5,
+        BUNNY: 6
     };
 
     var Player = function(game, x, y, tileCollState) {
@@ -25,21 +26,25 @@
         game.physics.arcade.enable(this);
         this.scale.x = 1; //flipped
         this.scale.y = 1;
+
+        this.isBig = false;
         this.anchor.setTo(0.5, 0); //so it flips around its middle
         this.body.setSize(28, 80, 0, 12);
         this.body.bounce.y = 0.0;
         this.body.gravity.y = GRAVITY;
         this.body.collideWorldBounds = true;
-        /*
-        this.animations.add('walk', [2, 3], 10, true);
-        this.animations.add('idle', [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4], 10, true);
+        this.throwBunny = 0;
+
+        //this.animations.add('walk', [0, 3], 10, true);
+        /*this.animations.add('idle', [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4], 10, true);
         this.animations.add('respawn', [2, 15], 10, true);
         this.animations.add('wiggle', [8,9,10,11],10,true);
         */
-        this.animations.add('walk', [0], 10, true);
-        this.animations.add('idle', [0], 10, true);
-        this.animations.add('respawn', [0], 10, true);
-        this.animations.add('wiggle', [0], 10, true);
+        this.animations.add('walk', [4,5], 10, true);
+        this.animations.add('idle', [6,6,6,6,6,6,6,6,6,6,6,6,6,6,2], 10, true);
+        this.animations.add('jump', [7], 10, true);
+        this.animations.add('respawn', [0,15], 10, true);
+        this.animations.add('wiggle', [0,], 10, true);
         this.body.mass = 1;
         this.game = game;
 
@@ -103,8 +108,8 @@
             right: this.game.input.keyboard.addKey(Phaser.Keyboard.D),
         };
 
-        var space = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-        space.onDown.add(this.startTalk, this);
+        this.space = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        this.space.onDown.add(this.startTalk, this);
 
         this.game.input.keyboard.removeKey(Phaser.Keyboard.ESC);
 
@@ -157,13 +162,33 @@
 
 
         var idle = true;
+        this.throwBunny = Math.max(0,this.throwBunny - 1)
         this.body.velocity.x = 0;
         this.body.immovable = false;
         this.body.move = true;
         this.body.gravity.y = GRAVITY;
 
+
         var ladderJump = this.wasLadder;
         this.wasLadder = false;
+
+        if(this.space.isDown && this.currentBunny && this.throwBunny === 0 ){
+            if(this.mode !== MODES.TALK){
+                this.currentBunny.mode = Bunny.MODES.IDLE;
+                this.currentBunny.body.velocity.x = -500 * -this.scale.x;
+                this.currentBunny.body.velocity.y = -200;
+                this.currentBunny.isBullet = true;
+                this.currentBunny = null;
+                this.throwBunny = 80;
+
+            }
+        }
+
+        if(this.currentBunny){
+            this.currentBunny.x = this.x + 30 * this.scale.x;
+            this.currentBunny.y = this.y + 30;
+            this.currentBunny.scale.x = Math.abs(this.currentBunny.scale.x) * Math.sign(this.scale.x);
+        }
 
         switch (this.mode) {
             case MODES.PLAY:
@@ -172,13 +197,22 @@
                     this.body.enable = true;
                     if (this.cursors.left.isDown || this.wasd.left.isDown) {
                         this.body.velocity.x = -SPEED;
-                        this.animations.play('walk');
+                        if(this.body.onFloor() || this.body.touching.down) {
+                            this.animations.play('walk');
+                        }else{
+                            this.animations.play('jump');
+                        }
+
                         flipLeft(this);
                         idle = false;
                         this.movedByKey();
                     } else if (this.cursors.right.isDown || this.wasd.right.isDown) {
                         this.body.velocity.x = SPEED;
-                        this.animations.play('walk');
+                        if(this.body.onFloor() || this.body.touching.down) {
+                            this.animations.play('walk');
+                        }else{
+                            this.animations.play('jump');
+                        }
                         flipRight(this);
                         idle = false;
                         this.movedByKey();
@@ -196,6 +230,12 @@
                             this.movedByKey();
                         }
                     }
+                    if(this.space.isDown && this.tileCollState.bunny && this.throwBunny === 0){
+                        this.throwBunny = 30;
+                        this.currentBunny = this.tileCollState.bunny;
+                        this.currentBunny.mode = Bunny.MODES.TAKEN_BY_PLAYER;
+                    }
+
                     break;
 
                 }
@@ -250,7 +290,7 @@
                         this.mode = MODES.PLAY;
                     }
 
-                    this.animations.play('respawn');
+                    this.animations.play('idle');
 
                     if (this.cursors.left.isDown || this.wasd.left.isDown) {
                         this.x = this.x - LADDER;
@@ -281,8 +321,12 @@
         }
 
         //  Stand still
-        if (idle) {
-            this.animations.play('idle');
+        if (idle ){
+            if(this.body.onFloor() || this.body.touching.down) {
+                this.animations.play('idle');
+            }else{
+                this.animations.play('jump');
+            }
         }
     };
 
@@ -337,7 +381,7 @@
 
     Player.prototype.setRespawnPoint = function() {
         if (this.respawnPoint.x < this.x)
-            this.respawnPoint.set(this.x, this.y);
+            this.respawnPoint.set(this.x, this.y-5);
     };
 
 

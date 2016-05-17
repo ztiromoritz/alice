@@ -31,6 +31,22 @@
                  "width":32,
                  "x":64,
                  "y":480
+                }, 
+                {
+                 "gid":68,
+                 "height":32,
+                 "id":10,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":96,
+                 "y":480
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -39,7 +55,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":10,
+ "nextobjectid":11,
  "orientation":"orthogonal",
  "properties":
     {
@@ -68,6 +84,10 @@
                 {
                  "type":"ladder"
                 },
+             "1":
+                {
+                 "type":"ladder"
+                },
              "10":
                 {
                  "type":"solid"
@@ -84,17 +104,13 @@
                 {
                  "type":"solid"
                 },
-             "14":
+             "6":
                 {
                  "type":"solid"
                 },
-             "15":
+             "7":
                 {
                  "type":"solid"
-                },
-             "4":
-                {
-                 "type":"ladder"
                 },
              "8":
                 {
