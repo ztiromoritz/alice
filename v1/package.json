@@ -1,0 +1,18 @@
+{
+  "name": "hello",
+  "main": "editor.html",
+  "window": {
+    "title": "Phaser Test",
+    "icon": "./assets/favicon.png",
+    "toolbar": false,
+    "frame": true,
+    "fullscreen": true
+  },
+  "dependencies": {
+    "babel-core": "^5.8.35",
+    "draft-js": "^0.7.0",
+    "es6-shim": "^0.34.4",
+    "react": "^15.0.2",
+    "react-dom": "^15.0.2"
+  }
+}

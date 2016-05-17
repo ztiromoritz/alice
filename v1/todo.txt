@@ -1,0 +1,26 @@
+ + Play Mode
+ - Text im Play mode nicht bearbeitbar
+ - Anleitung
+ - Art: background-color
+ - Art: Tiles überarbeiten, minimap color
+ - Tile Feature: shrink, grow
+ - Tile Feature: final goal
+ - Minimap: besser abheben
+ - # to trigger mesh
+ - GamePad/Virtual game pad
+ - Controlls verallgemeiners
+ - Tiles Wegwerfen implementieren
+ - Art: Nice tiles
+ - Art: Animation
+ ================================================
+ x Minimap: update und andere objekte darstellen
+ X checkpoint
+ x Ladder does not work
+ x Edit text
+ x Store:
+    X Map
+    X Objects:
+      X Mixin schreiben
+    X Text
+ x NPC: talkienes eher bemerken
+ -Router

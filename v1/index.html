@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Phaser Test</title>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.png">
+    <link href='./assets/fonts/press_start_2p/PressStart2P.css' rel='stylesheet' type='text/css'>
+    <link href='./css/game.css' rel='stylesheet' type='text/css'>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+
+    <!--
+    <link href='./node_modules/draft-js/dist/Draft.css' rel='stylesheet' type='text/css'>
+    <script src="./node_modules/react/dist/react.js"></script>
+    <script src="./node_modules/react-dom/dist/react-dom.js"></script>
+    <script src="./node_modules/babel-core/browser.js"></script>
+    <script src="./node_modules/immutable/dist/immutable.js"></script>
+    <script src="./node_modules/es6-shim/es6-shim.js"></script>
+    <script src="./node_modules/draft-js/dist/Draft.js"></script>
+  -->
+</head>
+<body>
+<div  class="wrapper">
+
+
+    <div id="playground">
+        <div id="talk" contenteditable="true">Text is here <br> <a href="">Bla</a></div>
+        <div id="game"></div>
+        <!--<div id="menu">
+            <div class="button" id="start">Start</div>
+            <div class="button">Einstellungen</div>
+            <div class="button">Credits</div>
+        </div>-->
+    </div>
+
+</div>
+
+
+<script src="./lib/phaser-2.4.4.js"></script>
+<script src="./lib/garfunkel.js"></script>
+
+<script type="text/javascript" src="./lib/lodash.min.js"></script>
+<script type="text/javascript" src="./lib/jquery.min.js"></script>
+<script type="text/javascript" src="./lib/tweepee-0.2.js"></script>
+<script type="text/javascript" src="./lib/lz-string.min.js"></script>
+
+<script type="text/javascript" src="./js/util/game.util.js"></script>
+<script type="text/javascript" src="./js/util/game.fullscreen.js"></script>
+<script type="text/javascript" src="./js/util/game.talk.js"></script>
+<script type="text/javascript" src="./js/util/game.pad.js"></script>
+<script type="text/javascript" src="./js/util/game.eventZone.js"></script>
+<script type="text/javascript" src="./js/util/LabelButton.js"></script>
+<script type="text/javascript" src="./js/util/storage.js"></script>
+<script type="text/javascript" src="./js/util/menu.js"></script>
+<script type="text/javascript" src="./js/util/urlParams.js"></script>
+<script type="text/javascript" src="./js/util/TilemapSerializer.js"></script>
+
+
+<script type="text/javascript" src="./js/sprites/Background.js"></script>
+<script type="text/javascript" src="./js/sprites/ReproducerMixin.js"></script>
+<script type="text/javascript" src="./js/sprites/Player.js"></script>
+<script type="text/javascript" src="./js/sprites/Enemy1.js"></script>
+<script type="text/javascript" src="./js/sprites/Bunny.js"></script>
+<script type="text/javascript" src="./js/sprites/NPC.js"></script>
+<script type="text/javascript" src="./js/sprites/Checkpoint.js"></script>
+<script type="text/javascript" src="./js/sprites/Minimap.js"></script>
+<script type="text/javascript" src="./js/sprites/Toolbox.js"></script>
+<script type="text/javascript" src="./js/sprites/Grid.js"></script>
+<script type="text/javascript" src="./js/sprites/IconButton.js"></script>
+
+<script type="text/javascript" src="./js/states/PreloadState.js"></script>
+<script type="text/javascript" src="./js/states/MenuState.js"></script>
+<script type="text/javascript" src="./js/states/PlayState.js"></script>
+<script type="text/javascript" src="./js/game.js"></script>
+<script type="text/javascript" src="./js/test.js"></script>
+
+
+
+
+<script type="text/babel">
+
+/*
+const {Editor, EditorState,RichUtils} = Draft;
+
+class MyEditor extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {editorState: EditorState.createEmpty()};
+    this.onChange = (editorState) => this.setState({editorState});
+    this.handleKeyCommand = this.handleKeyCommand.bind(this);
+  }
+  handleKeyCommand(command) {
+    const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
+    if (newState) {
+      this.onChange(newState);
+      return true;
+    }
+    return false;
+  }
+  render() {
+    return (
+      <Editor
+        editorState={this.state.editorState}
+        handleKeyCommand={this.handleKeyCommand}
+        onChange={this.onChange}
+      />
+    );
+  }
+}
+
+
+ReactDOM.render(
+  <MyEditor />,
+  document.getElementById('talk')
+);
+*/
+</script>
+
+</body>
+</html>
