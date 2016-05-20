@@ -1,0 +1,116 @@
+html {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Alegreya,Helvetica,Courier New;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+
+header {
+
+    position: relative;
+    height: 80px;
+    font-family: "Courier New", monospace;
+
+}
+
+header h1{
+    position: absolute;
+    left: 20px;
+    bottom: 15px;
+    letter-spacing: 3px;
+    font-size: 50px;
+
+    color: #1288AF;
+}
+
+body {
+    background-image: url('./img/bg.png');
+    height: 100%; /* needed for container min-height */
+}
+
+.wrapper {
+    box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.75);
+    margin: 0px auto;
+    max-width: 1200px;
+    min-width: 300px;
+    min-height: 100vh;
+    background-color:  rgba(255,255,255,0.7);
+    padding-top: 28px;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    padding: 0 50px 0 50px;
+}
+
+footer {
+    height: 90px;
+    background: #f7f7f7;
+    border-top: 2px solid #ccc;
+}
+
+.menu{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    margin-top: 18px;
+}
+
+
+.link {
+    background-color: #dddddd;
+    width: 220px;
+    height: 200px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    font-family: Bebas Neue;
+    font-size: 30px;
+}
+
+
+.link a {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    text-decoration: none; /* No underlines on the link */
+    z-index: 10; /* Places the link above everything else in the div */
+    background-color: #FFF; /* Fix to make div clickable in IE */
+    opacity: 0; /* Fix to make div clickable in IE */
+    filter: alpha(opacity=1); /* Fix to make div clickable in IE */
+
+}
+
+.link img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.link h4 {
+
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    color: #fff;
+    //text-shadow: 1px 1px #ffffff;
+}
+
+.link .title {
+    position: absolute;
+    bottom: 0;
+    height: 50%;
+    width: 100%;
+    padding-left: 10px;
+    background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.3));
+}
